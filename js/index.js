@@ -3,15 +3,17 @@
 function WaterFall(){
 	var _this = this;
 	this.wrapper = $('#wrapper');
-	this.windowWidht = $(window).width() - 17;	//	视口宽度
+	this.windowWidht = $(window).width();	//	视口宽度
 	this.itemArray = this.wrapper.find('.item');	
-	this.itemWidth = $(this.itemArray[0]).width();
+	this.itemWidth = $(this.itemArray[0]).width() + 15;
 	this.colNum = Math.floor(this.windowWidht / this.itemWidth);	// 每行能够容纳几个盒子
+	this.wrapper.css('width', this.colNum * this.itemWidth);
+
+
 	this.itemHeightData = Array();
-	this.wrapper.css('margin', '0 auto');
 
 	this.itemArray.each(function(index, el) {
-		var itemHeight = $(_this.itemArray[index]).height();
+		var itemHeight = $(_this.itemArray[index]).height() + 15;
 			//	第一行的元素不需要定位，直接自然摆放
 		if(index < _this.colNum){
 			_this.itemHeightData[index] = itemHeight; //第一行中的num个块框pin 先添加进数组pinHArr
@@ -23,7 +25,7 @@ function WaterFall(){
 
             $( el ).css({
                 'position': 'absolute',
-                'top': minHeight + 15,
+                'top': minHeight,
                 'left': $(_this.itemArray[minHeightIndex]).position().left
             });
             //数组 最小高元素的高 + 添加上的aPin[i]块框高
