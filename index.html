@@ -44,7 +44,6 @@
 		<div class="imgShow" ><a href="./images/temp_img11.jpg"><img src="./images/temp_img11.jpg"></a></div>
 		<div class="imgShow" ><a href="./images/temp_img12.jpg"><img src="./images/temp_img12.jpg"></a></div>
 		<div class="imgShow" ><a href="./images/temp_img13.jpg"><img src="./images/temp_img13.jpg"></a></div>
-		<div class="imgShow" ><a href="./images/temp_img14.jpg"><img src="./images/temp_img14.jpg"></a></div>
 		<div class="imgShow" ><a href="./images/temp_img15.jpg"><img src="./images/temp_img15.jpg"></a></div>
 	</div>
 
@@ -59,11 +58,38 @@ function WaterFall(){
 	this.container = $('.container');
 	this.singleItemWidth = this.items[0].offsetWidth + this.margin;
 
+	var dataInt={
+        'data':[{'src':'temp_img06.jpg'},{'src':'temp_img12.jpg'},{'src':'temp_img15.jpg'},{'src':'temp_img03.jpg'}]
+    };
+
 	$(window).resize(function(event) {
-		/* Act on the event */
 		_this.init();
 	});
 
+	$(document).scroll(function(event) {
+		if(_this.checkscrollside()){
+			//	执行数据加载
+			for(var i = 0; i < dataInt.data.length; i++){
+				var imgShow = document.createElement('div');
+				imgShow.className = 'imgShow';
+				var aEl = document.createElement('a');
+				imgShow.appendChild(aEl);
+				var img = document.createElement('img');
+				img.src = './images/' + dataInt.data[i].src;
+				aEl.appendChild(img);
+				_this.container[0].appendChild(imgShow);
+
+				$(imgShow).css('opacity', "0");
+				$(imgShow).stop().animate({
+			        "opacity":"1"
+			    }, 300);
+			}
+
+			//	更新元素数量
+			_this.items = $('.imgShow');
+			_this.init();
+		}
+	});
 
 }
 WaterFall.prototype = {
@@ -74,8 +100,6 @@ WaterFall.prototype = {
 		if($(window).width() > this.singleItemWidth){
 			this.container.css('left', ($(window).width() - (colMaxNumber * this.singleItemWidth)) / 2);
 		}
-		
-
 		for(var i = 0; i < this.items.length; i++){
 			if(i < colMaxNumber){
 				itemHeightArray[i] = this.items[i].offsetHeight + this.margin;
@@ -88,9 +112,8 @@ WaterFall.prototype = {
 				this.items[i].style.top = minHeight + 'px';
 				// this.items[i].style.left = this.items[minHeightIndex].offsetLeft + 'px';
 				this.items[i].style.left = minHeightIndex * this.singleItemWidth + 'px';
-
 				itemHeightArray[minHeightIndex] += this.items[i].offsetHeight + this.margin;
-
+	
 
 				// //	取出数组中最小高度的下标
 				// var innsertColumn = this.min(itemHeightArray);
@@ -103,8 +126,6 @@ WaterFall.prototype = {
 			}	
 
 		}
-
-			
 	},
 	min : function(heightAarry){
 		var minColumn = 0;
@@ -117,6 +138,14 @@ WaterFall.prototype = {
 			};
 		};
 		return minColumn;
+	},
+	checkscrollside : function(){
+		//	视口高度
+		var widnowHeight = document.documentElement.clientHeight;
+		//	滚动条距离文档顶部的高度
+		var scrollHeight = document.documentElement.scrollTop || document.body.scrollTop;
+		var lastElement = $(this.items[this.items.length - 1]);
+		return (widnowHeight + scrollHeight) > (lastElement.offset().top + lastElement.height() / 2);
 	}
 };
 
