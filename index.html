@@ -66,8 +66,8 @@ function WaterFall(){
         'data':[{'src':'temp_img06.jpg'},{'src':'temp_img12.jpg'},{'src':'temp_img15.jpg'},{'src':'temp_img03.jpg'}]
     };
 
-	
-	$("img").load(function(){
+	//	当页面所有额img元素加载完毕后再进行操作，否则会获取不到item的真实高度
+	$(".imgShow img").load(function(){
 		
 		$(window).resize(function(event) {
 			setTimeout(function(){
