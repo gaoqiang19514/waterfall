@@ -68,38 +68,38 @@ function WaterFall(){
 
 	
 	$("img").load(function(){
-		_this.init();
-		$(window).resize(function(event) {
-		setTimeout(function(){
-			_this.init();
-		}, 500);
 		
-	});
+		$(window).resize(function(event) {
+			setTimeout(function(){
+				_this.init();
+			}, 500);
+			
+		});
 
-	$(document).scroll(function(event) {
-		if(_this.checkscrollside()){
-			//	执行数据加载
-			for(var i = 0; i < dataInt.data.length; i++){
-				var imgShow = document.createElement('div');
-				imgShow.className = 'imgShow';
-				var aEl = document.createElement('a');
-				imgShow.appendChild(aEl);
-				var img = document.createElement('img');
-				img.src = './images/' + dataInt.data[i].src;
-				aEl.appendChild(img);
-				_this.container[0].appendChild(imgShow);
+		$(document).scroll(function(event) {
+			if(_this.checkscrollside()){
+				//	执行数据加载
+				for(var i = 0; i < dataInt.data.length; i++){
+					var imgShow = document.createElement('div');
+					imgShow.className = 'imgShow';
+					var aEl = document.createElement('a');
+					imgShow.appendChild(aEl);
+					var img = document.createElement('img');
+					img.src = './images/' + dataInt.data[i].src;
+					aEl.appendChild(img);
+					_this.container[0].appendChild(imgShow);
 
-				$(imgShow).css('opacity', "0");
-				$(imgShow).stop().animate({
-			        "opacity":"1"
-			    }, 300);
+					$(imgShow).css('opacity', "0");
+					$(imgShow).stop().animate({
+				        "opacity":"1"
+				    }, 300);
+				}
+
+				//	更新元素数量
+				_this.items = $('.imgShow');
+				_this.init();
 			}
-
-			//	更新元素数量
-			_this.items = $('.imgShow');
-			_this.init();
-		}
-	});
+		});
 	});
 
 }
