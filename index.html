@@ -22,12 +22,15 @@
 			float: left;
 			border:solid 1px #ccc;
 			padding:10px;
+			border-radius: 4px;
+			box-shadow: 5px 5px 5px #ccc;
 			-webkit-transition: all .7s ease-out .1s;
 		    -moz-transition: all .7s ease-out .1s;
 		    -o-transition: all .7s ease-out .1s;
 		    /*transition: all .7s ease-out .1s;*/
 		    transition: all .7s cubic-bezier(0.18, 0.89, 0.32, 1.28) .1s;
 		}
+
 
 	</style>
 </head>
@@ -64,7 +67,10 @@ function WaterFall(){
     };
 
 	$(window).resize(function(event) {
-		_this.init();
+		setTimeout(function(){
+			_this.init();
+		}, 500);
+		
 	});
 
 	$(document).scroll(function(event) {
