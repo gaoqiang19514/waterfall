@@ -115,7 +115,7 @@ WaterFall.prototype = {
 			}else{
 				var minHeight = Math.min.apply(null, itemHeightArray);
 				var minHeightIndex = $.inArray(minHeight, itemHeightArray);
-				this.items[i].style.position = 'absolute';
+	
 				this.items[i].style.top = minHeight + 'px';
 				// this.items[i].style.left = this.items[minHeightIndex].offsetLeft + 'px';
 				this.items[i].style.left = minHeightIndex * this.singleItemWidth + 'px';
