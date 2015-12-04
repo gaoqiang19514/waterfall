@@ -68,8 +68,9 @@ function WaterFall(){
 
 	
 	$("img").load(function(){
-			_this.init();
-			$(window).resize(function(event) {
+		_this.init();
+		
+		$(window).resize(function(event) {
 			setTimeout(function(){
 				_this.init();
 			}, 500);
